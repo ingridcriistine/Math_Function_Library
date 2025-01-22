@@ -1,22 +1,19 @@
 ﻿using static System.Console;
 
-Function x3 = new PowFunction(new Linear(), new ConstFunction(3));
-Function x2 = new MultFunction(
-    new ConstFunction(-4),
-    new PowFunction(new Linear(), new ConstFunction(2))
-);
-Function x1 = new MultFunction(new ConstFunction(-6), new Linear());
-Function poli = new SumFuncition(
-    new SumFuncition(x3, x2),
-    new SumFuncition(x1, new ConstFunction(12))
-);
+Function x = new Linear();
 
-var newton = new DivFunction(poli, poli.Derive());
+var poli = (x ^ 3) + -4 * (x ^ 2) + -6 * x + 12;
 
-double x = 4;
-for (int i = 0; i < 4; i++)
+var newton = poli / poli.Derive();
+
+double m = 4;
+int count = 0;
+var aux = 0d;
+while (Math.Round(aux, 3) != Math.Round(m, 3))
 {
-    x = x - newton[x];
+    aux = m;
+    m = m - newton[m];
+    count++;
 }
 
-WriteLine(x);
+WriteLine($"Foram {count} tentativar valor encontrado: {m}");

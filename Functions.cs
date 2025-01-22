@@ -5,10 +5,25 @@ public abstract class Function()
     public static Function operator +(Function x, double y) =>
         new SumFuncition(x, new ConstFunction(y));
 
+    public static Function operator +(double y, Function x) =>
+        new SumFuncition(new ConstFunction(y), x);
+
+    public static Function operator +(Function y, Function x) => new SumFuncition(y, x);
+
+    public static Function operator ^(Function x, double y) =>
+        new PowFunction(x, new ConstFunction(y));
+
+    public static Function operator ^(Function x, Function y) => new PowFunction(x, y);
+
     public static Function operator *(Function x, double y) =>
         new MultFunction(x, new ConstFunction(y));
 
+    public static Function operator *(double y, Function x) =>
+        new MultFunction(x, new ConstFunction(y));
+
     public static implicit operator Function(double x) => new ConstFunction(x);
+
+    public static Function operator /(Function y, Function x) => new DivFunction(y, x);
 
     public abstract Function Derive();
 }
